@@ -14,6 +14,7 @@ var questionSet = {
 };
 var judgementEl = document.body.querySelector(".judgement");
 var personalScoreEl = document.body.querySelector("#personalScore");
+var highScoresEl = document.body.querySelector("#highScores");
 
 function setTime() {
     var timerInterval = setInterval(function () {
@@ -89,6 +90,15 @@ for (var i = 0;i < buttonElements.length;i++){
         }
     });
 };
+
+var submitScoreEl = document.body.querySelector("#saveScore");
+
+submitScoreEl.addEventListener("click", function() {
+
+    personalScoreEl.className = "card-body hidden";
+    highScoresEl.className = "card-body";
+
+});
 
 function nextQuestion() {
     var next = "choiceSet" + questionNum;

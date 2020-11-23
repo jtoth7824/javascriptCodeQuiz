@@ -23,7 +23,7 @@
     <br>
     <div class="container justify-content-center">
         <div class="card" style="width: 40rem;">
-            <div class="card-body" id = "try">
+            <div class="card-body" id="try">
                 <h3 class="card-title">Code Quiz Challenge</h3>
                 <p class="card-text">Try to answer the following Javascript questions to see how well you did </p>
                 <div class="justify-content-center"><input class="btn btn-primary" id = "start" type="submit" value="Start Quiz">
@@ -52,14 +52,12 @@
             <div class="card-body hidden" id="personalScore">
                 <div>
                     <h2>All Done!</h2>
-                    <h3 class="card-title">Your score is: </h3>
+                    <h3 class="card-title" id="currentScore">Your score is: </h3>
                 </div>
                 <div>
                     <h4>Enter initials:</h2>
-                    <input type="text">
-                </div>
-                <div>
-                    <input type="button" class="button" value="Submit" id="saveScore">
+                    <input type="text" class="playerInitials">
+                    <input type="button" class="button-save" value="Submit" id="saveScore">
                 </div>
             </div>
             <div class="card-body hidden" id="highScores">
@@ -76,8 +74,8 @@
                     <input type="text" class="textBox", value="temp2">
                 </div>
                 <div>
-                    <input type="button" class="button" value="Go Back" id="goBack">
-                    <input type="button" class="button" value="Clear Scores" id="resetScores">
+                    <input type="button" value="Go Back" id="goBack">
+                    <input type="button" value="Clear Scores" id="resetScores">
                 </div>
             </div>
         </div>

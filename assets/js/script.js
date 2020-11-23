@@ -3,6 +3,8 @@ var secondsLeft = 75;
 var buttonId;
 var personalScore;
 var questionNum = 1;
+var score = 0;
+var initials ="";
 var questionSet = {
     javaQuestion: ["Commonly used data types do NOT include:", "Condition in If/Else statement is enclosed within:", "Arrays in javascript can be used to store:", "String values must be enclosed within ______ when being assigend", "A very useful tool used during development and \n debugging for printing content to the debugger is:"],
     choiceSet1: ["Strings", "Booleans", "Alerts", "Numbers"],
@@ -15,31 +17,6 @@ var questionSet = {
 var judgementEl = document.body.querySelector(".judgement");
 var personalScoreEl = document.body.querySelector("#personalScore");
 var highScoresEl = document.body.querySelector("#highScores");
-
-function setTime() {
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        console.log(secondsLeft);
-        timeEl.textContent = "Time: " + secondsLeft;
-
-        if (secondsLeft <= 0) {
-            clearInterval(timerInterval);
-            /*     sendMessage();*/
-        }
-    }, 1000);
-};
-
-/*function sendMessage() {
-  timeEl.textContent = " ";
-
-  var imgEl = document.createElement("img");
-
-  imgEl.setAttribute("src", "images/image_1.jpg");
-  mainEl.appendChild(imgEl);
-
-}
-*/
-
 var choice1El = document.querySelector(".choice1");
 var choice2El = document.querySelector(".choice2");
 var choice3El = document.querySelector(".choice3");
@@ -49,7 +26,27 @@ var startEl = document.querySelector("#start");
 var buttonEl = document.querySelectorAll(".input");
 var quizEl = document.querySelector("#quiz");
 var tryEl = document.querySelector("#try");
+var currentScoreEl = document.body.querySelector("#currentScore");
+var highScoreEl = document.body.querySelectorAll(".textBox");
+var playerInitialsEl = document.body.querySelector(".playerInitials");
+var buttonElements = document.querySelectorAll(".button");
+var submitScoreEl = document.body.querySelector("#saveScore");
+var resetScoresEl = document.body.querySelector("#resetScores");
+var goBackEl = document.body.querySelector("#goBack");
 
+function setTime() {
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        console.log(secondsLeft);
+        timeEl.textContent = "Time: " + secondsLeft;
+
+        if (secondsLeft <= 0 || questionNum === 6) {
+            clearInterval(timerInterval);
+        }
+    }, 1000);
+};
+
+console.log(currentScoreEl);
 function addNewElements() {
     nextQuestion();
 };
@@ -67,7 +64,7 @@ startEl.addEventListener("click", function () {
 
 });
 
-var buttonElements = document.querySelectorAll(".button");
+
 for (var i = 0;i < buttonElements.length;i++){
     buttonElements[i].addEventListener('click',function(){
         buttonId = this.getAttribute('value');
@@ -82,8 +79,11 @@ for (var i = 0;i < buttonElements.length;i++){
             questionNum = questionNum + 1;
         }
         if (questionNum === 6) {
+
             quizEl.className = "card-body hidden";
-            personalScoreEl.className = "card-body"; 
+            personalScoreEl.className = "card-body";
+            score = secondsLeft;
+            currentScoreEl.textContent = currentScoreEl.textContent + "  " + score;
         }
         else {
             nextQuestion();
@@ -91,13 +91,27 @@ for (var i = 0;i < buttonElements.length;i++){
     });
 };
 
-var submitScoreEl = document.body.querySelector("#saveScore");
-
 submitScoreEl.addEventListener("click", function() {
 
     personalScoreEl.className = "card-body hidden";
     highScoresEl.className = "card-body";
 
+    initials = playerInitialsEl.value;
+    highScoreEl[0].value = playerInitialsEl.value + " " + score;
+
+});
+
+resetScoresEl.addEventListener("click", function() {
+
+    for(i=0; i<highScoreEl.length; i++){
+        console.log(highScoreEl[i]);
+        highScoreEl[i].remove();
+    }
+
+});
+
+goBackEl.addEventListener("click", function() {
+    window.location.reload();
 });
 
 function nextQuestion() {

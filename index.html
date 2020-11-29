@@ -20,10 +20,10 @@
             <!--Applied custom styles, also utilized mr-auto class to shift menu options to right-->
             <nav class="mr-auto navbar navbar-light">
                 <form class="form-inline">
-                    <button class="btn btn-outline-success" id="viewHSLink" type="button">View High Scores</button>
+                    <button class="btn btnMyStyle" id="viewHSLink" type="button">View High Scores</button>
                 </form>
             </nav>
-            <nav class="navbar navbar-expand-lg bg-light">
+            <nav class="navbar navbar-expand-lg">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,11 +40,11 @@
         <main>
             <div class="container justify-content-center">
                 <div class="card" style="width: 40rem;">
-                    <div class="card-body" id="try">
+                    <div class="card-body" id="start">
                         <h3 class="card-title">Code Quiz Challenge</h3>
                         <p class="card-text">Try to answer the following Javascript questions to see how well you did
                         </p>
-                        <div class="justify-content-center"><input class="btn btn-primary" id="start" type="submit"
+                        <div class="justify-content-center"><input class="btn btnMyStyle" id="start" type="submit"
                                 value="Start Quiz">
                         </div>
                     </div>
@@ -53,8 +53,9 @@
                             <h3 class="card-title question"></h3>
                         </div>
                         <form id="answerform">
-                            <ol id="answers"></ol>
+                            <ul id="answers"></ul>
                         </form>
+                        <hr class="blueline">
                         <div>
                             <p class="judgement"></p>
                         </div>
@@ -66,9 +67,12 @@
                         </div>
                         <div>
                             <h4>Enter initials:</h2>
-                                <input type="text" class="playerInitials">
-                                <input type="button" class="button-save" value="Submit" id="saveScore">
+                                  <input type="text" class="playerInitials">
+                                  <!-- <div class="input playerInitials" type="text"></div> -->
+                                <input type="button" class="button-save btn-Submit btnMyStyle" value="Submit" id="saveScore">
+
                         </div>
+                        <hr class="blueline">
                         <div>
                             <p class="verdict"></p>
                         </div>
@@ -77,9 +81,12 @@
                         <div>
                             <h1>High Scores</h1>
                         </div>
-                        <ol id="hsList"></ol>
-                        <input type="button" value="Go Back" id="goBack">
-                        <input type="button" value="Clear Scores" id="resetScores">
+                        <ul id="hsList"></ul>
+                        <hr class="blueline">
+                        <div class="justify-content-center">
+                            <input type="button" class="btn btnMyStyle" value="Go Back" id="goBack">
+                            <input type="button" class="btn btnMyStyle" value="Clear Scores" id="resetScores">
+                        </div>
                     </div>
                 </div>
             </div>

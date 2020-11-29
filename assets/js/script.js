@@ -23,7 +23,7 @@ var highScoresEl = document.body.querySelector("#highScores");
 var startEl = document.querySelector("#start");
 var buttonEl = document.querySelectorAll(".input");
 var quizEl = document.querySelector("#quiz");
-var tryEl = document.querySelector("#try");
+var startEl = document.querySelector("#start");
 var currentScoreEl = document.body.querySelector("#currentScore");
 var highScoreEl = document.body.querySelectorAll(".textBox");
 var playerInitialsEl = document.body.querySelector(".playerInitials");
@@ -45,7 +45,7 @@ function displayHS() {
         var li = document.createElement("li");
 
         /* set user initials and score for li tag */
-        li.textContent = highScores[i].initials + ": " + highScores[i].score;
+        li.textContent = (i + 1) + ".  " + highScores[i].initials + "  -   " + highScores[i].score;
 
         /* append high score as a child to the ul tag (hsList) */
         hsList.appendChild(li);
@@ -67,7 +67,7 @@ function displayAnswers() {
         liAns.id = "displayedAnswers";
 
         var Span = document.createElement("span");
-        Span.textContent = questionSet[next][j];
+        Span.textContent = (j + 1) + ".  " + questionSet[next][j];
 
         /* create button inside user choice item */
         /*        var button = document.createElement("button");*/
@@ -101,19 +101,18 @@ startEl.addEventListener("click", function () {
     /* start timer for quiz */
     setTime();
     /* switch screens */
-    tryEl.className = "card-body hidden";
+    startEl.className = "card-body hidden";
     quizEl.className = "card-body";
     /* display first question/answer set */
     nextQuestion();
 });
-
 
 /* event listener for answer buttons */
 answerList.addEventListener("click", function (event) {
     event.preventDefault();
 
     /* check if text inside element user clicked on matches the correct answer */
-    if (event.target.innerText === questionSet.correctanswer[questionNum - 1]) {
+    if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum- 1]) != -1) {
         /* display 'Correct' since user answer matched */
         event.target.className = "correct";
         judgementEl.innerText = "Correct!";
@@ -138,7 +137,7 @@ answerList.addEventListener("click", function (event) {
         /* display user score to screen */
         currentScoreEl.textContent = currentScoreEl.textContent + "  " + score;
         /* decide if user answered final question correctly and display prompt */
-        if (event.target.innerText === questionSet.correctanswer[questionNum - 2]) {
+        if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum- 2]) != -1) {
             verdictEl.innerText = "Correct!";
         } else {
             verdictEl.innerText = "Wrong answer!";
@@ -150,6 +149,11 @@ answerList.addEventListener("click", function (event) {
         nextQuestion();
     }
 });
+
+function sortFunction() {
+    highScores.sort(function(a, b){return b.score - a.score});
+    console.log(highScores);
+  }
 
 /* remove verdict when user changes text box initials field */
 playerInitialsEl.addEventListener("input", function () {
@@ -165,6 +169,9 @@ submitScoreEl.addEventListener("click", function () {
         score: score
     };
 
+console.log(hsEntry);
+console.log(hsEntry.initials);
+if (hsEntry.initials !=="") {
     /* switch screens */
     personalScoreEl.className = "card-body hidden";
     highScoresEl.className = "card-body";
@@ -175,15 +182,21 @@ submitScoreEl.addEventListener("click", function () {
     highScores = storedHS;
     /* add new high score to end of high scores array */
     highScores.push(hsEntry);
+    sortFunction();
     /* display the updated high score list to screen */
     displayHS();
+}
+else {
+    alert("Need to enter initials");
+}
+
 });
 
 /* View High Scores button listener */
 viewHSLinkEl.addEventListener("click", function () {
     /* switch screens */
     navEl.className = "hidden";
-    tryEl.className = "card-body hidden";
+    startEl.className = "card-body hidden";
     quizEl.className = "card-body hidden";
     highScoresEl.className = "card-body";
 

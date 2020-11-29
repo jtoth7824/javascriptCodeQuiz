@@ -1,3 +1,108 @@
 .hidden {
     display: none;
 }
+
+html,
+body,
+.background {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("../images/bkgone.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbarBkg {
+    background: gray;
+}
+
+.captionSize {
+    font-size: 24px;
+}
+
+.johnNavLink {
+    display: block;
+    padding: .5rem 0 .5rem 1rem;
+    font-size: 20px;
+}
+
+.brand {
+    background-color: rgb(115, 13, 199);
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.aboutTextColor {
+    color: rgb(115, 13, 199);
+}
+
+/* Style the list items */
+ol li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    /*    list-style-type: none;*/
+    /*    background: #eee;*/
+    background: rgb(24, 99, 122);
+    font-size: 18px;
+    transition: 0.2s;
+    border-radius: 25px;
+    color: white;
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ol li::marker {
+    color: black;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ol li:nth-child(odd) {
+    /*    background: #f9f9f9;*/
+    background: rgb(15, 109, 96);
+}
+
+/* Darker background-color on hover */
+ol li:hover {
+    background: #ddd;
+    color: black;
+}
+
+/* When clicked on, add a background color */
+ol li.correct {
+    background: green;
+    color: #fff;
+}
+
+ol li.wrong {
+    background: red;
+    color: #fff;
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}

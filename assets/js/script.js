@@ -1,11 +1,10 @@
 /* global variables */
 var secondsLeft = 75;
-var buttonId;
 var personalScore;
 var questionNum = 1;
 var score = 0;
-var count = 0;
 var initials = "";
+var highScores = [];
 /* Question/answer set */
 var questionSet = {
     javaQuestion: ["Commonly used data types do NOT include:", "Condition in If/Else statement is enclosed within:", "Arrays in javascript can be used to store:", "String values must be enclosed within ______ when being assigend", "A very useful tool used during development and \n debugging for printing content to the debugger is:"],
@@ -21,10 +20,6 @@ var timeEl = document.querySelector(".timer");
 var judgementEl = document.body.querySelector(".judgement");
 var personalScoreEl = document.body.querySelector("#personalScore");
 var highScoresEl = document.body.querySelector("#highScores");
-var choice1El = document.querySelector(".choice1");
-var choice2El = document.querySelector(".choice2");
-var choice3El = document.querySelector(".choice3");
-var choice4El = document.querySelector(".choice4");
 var startEl = document.querySelector("#start");
 var buttonEl = document.querySelectorAll(".input");
 var quizEl = document.querySelector("#quiz");
@@ -32,10 +27,62 @@ var tryEl = document.querySelector("#try");
 var currentScoreEl = document.body.querySelector("#currentScore");
 var highScoreEl = document.body.querySelectorAll(".textBox");
 var playerInitialsEl = document.body.querySelector(".playerInitials");
-var buttonElements = document.querySelectorAll(".button");
 var submitScoreEl = document.body.querySelector("#saveScore");
 var resetScoresEl = document.body.querySelector("#resetScores");
 var goBackEl = document.body.querySelector("#goBack");
+var verdictEl = document.body.querySelector(".verdict");
+var navEl = document.body.querySelector("#topNav");
+var hsList = document.body.querySelector("#hsList");
+var answerList = document.querySelector("#answers");
+var viewHSLinkEl = document.querySelector("#viewHSLink");
+
+function displayHS() {
+    /* clear elements inside the ul tag to remove existing high scores*/
+    hsList.innerHTML = "";
+
+    /* for loop to re-display the list of high scores from local storage */
+    for (var i = 0; i < highScores.length; i++) {
+        var li = document.createElement("li");
+
+        /* set user initials and score for li tag */
+        li.textContent = highScores[i].initials + ": " + highScores[i].score;
+
+        /* append high score as a child to the ul tag (hsList) */
+        hsList.appendChild(li);
+    }
+    /* save high scores to local storage */
+    storeHS();
+}
+
+function displayAnswers() {
+    var next = "choiceSet" + questionNum;
+
+    /* loop over answer choice set and display the choices */
+    for (var j = 0; j < questionSet[next].length; j++) {
+
+        var liAns = document.createElement("li");
+
+        /* set answer choice as text of li tag */
+        /*        liAns.textContent = questionSet[next][j];*/
+        liAns.id = "displayedAnswers";
+
+        var Span = document.createElement("span");
+        Span.textContent = questionSet[next][j];
+
+        /* create button inside user choice item */
+        /*        var button = document.createElement("button");*/
+        /*        liAns.appendChild(button);*/
+        liAns.appendChild(Span);
+
+        /* append answer choice as a child to the ul tag (answerList) */
+        answerList.appendChild(liAns);
+    }
+}
+
+function storeHS() {
+    /* save highScores to local storage after channging object to String */
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
 
 /* countdown timer function */
 function setTime() {
@@ -60,50 +107,105 @@ startEl.addEventListener("click", function () {
     nextQuestion();
 });
 
-/* for loop to set up answer button event listeners */
-for (var i = 0; i < buttonElements.length; i++) {
-    buttonElements[i].addEventListener('click', function () {
-        /* Each listener needs to check whether selected answer is wrong or correct and update score */
-        buttonId = this.getAttribute('value');
-        if (buttonId === questionSet.correctanswer[questionNum - 1]) {
-            judgementEl.innerText = "Correct!";
-            questionNum = questionNum + 1;
+
+/* event listener for answer buttons */
+answerList.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    /* check if text inside element user clicked on matches the correct answer */
+    if (event.target.innerText === questionSet.correctanswer[questionNum - 1]) {
+        /* display 'Correct' since user answer matched */
+        event.target.className = "correct";
+        judgementEl.innerText = "Correct!";
+        questionNum = questionNum + 1;
+    } else {
+        /* display 'wrong' since user answer did NOT match */
+        event.target.className = "wrong";
+        judgementEl.innerHTML = "Wrong answer!";
+        /* take extra time off timer since user answered incorrectly */
+        secondsLeft = secondsLeft - 15;
+        /* increment to next question */
+        questionNum = questionNum + 1;
+    };
+
+    /* check if end of quiz due to no more questions in array */
+    if (questionNum === 6) {
+        /* switch screens */
+        quizEl.className = "card-body hidden";
+        personalScoreEl.className = "card-body";
+        /* set score based upon time remaining */
+        score = secondsLeft;
+        /* display user score to screen */
+        currentScoreEl.textContent = currentScoreEl.textContent + "  " + score;
+        /* decide if user answered final question correctly and display prompt */
+        if (event.target.innerText === questionSet.correctanswer[questionNum - 2]) {
+            verdictEl.innerText = "Correct!";
         } else {
-            judgementEl.innerHTML = "Wrong answer!";
-            /* if answer was incorrect - deduct 15 seconds from timer/score */
-            secondsLeft = secondsLeft - 15;
-            questionNum = questionNum + 1;
-        }
-        /* check if all question/answer sets have been displayed */
-        if (questionNum === 6) {
-            quizEl.className = "card-body hidden";
-            personalScoreEl.className = "card-body";
-            score = secondsLeft;
-            /* display user score */
-            currentScoreEl.textContent = currentScoreEl.textContent + "  " + score;
-        } else {
-            /* if not the final question/answer set call function to display next question */
-            nextQuestion();
-        }
-    });
-};
+            verdictEl.innerText = "Wrong answer!";
+        };
+    } else {
+        /* clear question from screen when advancing to next quiz question */
+        clearQuestion();
+        /* display next question/answer set to screen when advancing to next quiz question */
+        nextQuestion();
+    }
+});
+
+/* remove verdict when user changes text box initials field */
+playerInitialsEl.addEventListener("input", function () {
+    /* when user changes the initials field remove the Correct/Wrong indication */
+    verdictEl.className = "hidden";
+});
 
 /* Save personal Score button listener */
 submitScoreEl.addEventListener("click", function () {
+    /* populate object with initials and score */
+    var hsEntry = {
+        initials: playerInitialsEl.value.trim(),
+        score: score
+    };
+
     /* switch screens */
     personalScoreEl.className = "card-body hidden";
     highScoresEl.className = "card-body";
-    /* add player initials and score to high score list */
-    initials = playerInitialsEl.value;
-    highScoreEl[0].value = playerInitialsEl.value + " " + score;
+    navEl.className = "hidden";
+
+    /* retrieve current high scores from local storage */
+    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+    highScores = storedHS;
+    /* add new high score to end of high scores array */
+    highScores.push(hsEntry);
+    /* display the updated high score list to screen */
+    displayHS();
+});
+
+/* View High Scores button listener */
+viewHSLinkEl.addEventListener("click", function () {
+    /* switch screens */
+    navEl.className = "hidden";
+    tryEl.className = "card-body hidden";
+    quizEl.className = "card-body hidden";
+    highScoresEl.className = "card-body";
+
+    /* retrieve current high scores from local storage */
+    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+    highScores = storedHS;
+    /* display the high score list on screen */
+    displayHS();
 });
 
 /* Reset High Score button listener */
 resetScoresEl.addEventListener("click", function () {
-    /* remove high scores from page upon Reset Scores button clicked */
-    for (i = 0; i < highScoreEl.length; i++) {
-        highScoreEl[i].remove();
+    var lengthHS = highScores.length;
+
+    /* pop each element off from the end of array until array is empty */
+    for (var m = 0; m < lengthHS; m++) {
+        highScores.pop();
     }
+    /* update local storage with empty high score array */
+    storeHS();
+    /* display the updated high score list to screen */
+    displayHS();
 });
 
 /* Reset Code Quiz button listener */
@@ -114,19 +216,19 @@ goBackEl.addEventListener("click", function () {
 
 /* Displays the next question/answer set based upon current questionNum variable */
 function nextQuestion() {
-    var next = "choiceSet" + questionNum;
     var questionEl = document.body.querySelector(".question");
 
     /* display current question */
     questionEl.textContent = questionSet.javaQuestion[questionNum - 1];
 
     /* display matching answers to current question */
-    var but1El = document.body.querySelector("#answer1");
-    but1El.value = questionSet[next][0];
-    var but2El = document.body.querySelector("#answer2");
-    but2El.value = questionSet[next][1];
-    var but3El = document.body.querySelector("#answer3");
-    but3El.value = questionSet[next][2];
-    var but4El = document.body.querySelector("#answer4");
-    but4El.value = questionSet[next][3];
+    displayAnswers();
 };
+
+function clearQuestion() {
+    var ans = document.querySelectorAll("#displayedAnswers");
+    /* remove all answers for current question from screen */
+    for (var i = 0; i < 4; i++) {
+        ans[i].remove();
+    }
+}

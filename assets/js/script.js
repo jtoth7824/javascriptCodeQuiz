@@ -45,7 +45,7 @@ function displayHS() {
         var li = document.createElement("li");
 
         /* set user initials and score for li tag */
-        li.textContent = (i + 1) + ".  " + highScores[i].initials + "  -   " + highScores[i].score;
+        li.textContent = (i + 1) + ".  " + highScores[i].initials + "  :   " + highScores[i].score;
 
         /* append high score as a child to the ul tag (hsList) */
         hsList.appendChild(li);

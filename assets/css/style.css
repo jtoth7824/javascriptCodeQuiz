@@ -18,7 +18,8 @@ body {
 }
 
 .navbarBkg {
-    background: gray;
+/*    background: gray;*/
+    background: transparent;
 }
 
 .captionSize {

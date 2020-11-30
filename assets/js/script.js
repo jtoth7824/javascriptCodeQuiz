@@ -63,15 +63,10 @@ function displayAnswers() {
         var liAns = document.createElement("li");
 
         /* set answer choice as text of li tag */
-        /*        liAns.textContent = questionSet[next][j];*/
         liAns.id = "displayedAnswers";
 
         var Span = document.createElement("span");
         Span.textContent = (j + 1) + ".  " + questionSet[next][j];
-
-        /* create button inside user choice item */
-        /*        var button = document.createElement("button");*/
-        /*        liAns.appendChild(button);*/
         liAns.appendChild(Span);
 
         /* append answer choice as a child to the ul tag (answerList) */
@@ -196,6 +191,7 @@ else {
 viewHSLinkEl.addEventListener("click", function () {
     /* switch screens */
     navEl.className = "hidden";
+    personalScoreEl.className = "card-body hidden";
     startEl.className = "card-body hidden";
     quizEl.className = "card-body hidden";
     highScoresEl.className = "card-body";

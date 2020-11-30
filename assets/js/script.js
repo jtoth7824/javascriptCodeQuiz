@@ -3,7 +3,7 @@ var secondsLeft = 75;
 var personalScore;
 var questionNum = 1;
 var score = 0;
-var initials = "";
+var savedInitials = "";
 var highScores = [];
 /* Question/answer set */
 var questionSet = {
@@ -48,7 +48,27 @@ function displayHS() {
         li.textContent = (i + 1) + ".  " + highScores[i].initials + "  :   " + highScores[i].score;
 
         /* append high score as a child to the ul tag (hsList) */
-        hsList.appendChild(li);
+        /*keep the following line!!!!!!*/
+/*        hsList.appendChild(li);*/
+
+        if (score === highScores[i].score && savedInitials === highScores[i].initials) {
+            li.className = "tryButton";
+            li.style.display = "inline-block";
+            li.style.backgroundColor = "red";
+            /* append high score as a child to the ul tag (hsList) */
+            /*keep the following line!!!!!!*/
+            hsList.appendChild(li);            
+            var div = document.createElement("span");
+            div.textContent = "<---- Your current score";
+            div.className = "try";
+            hsList.appendChild(div);
+        }
+        else {
+            /* append high score as a child to the ul tag (hsList) */
+            /*keep the following line!!!!!!*/
+            hsList.appendChild(li);
+        }
+
     }
     /* save high scores to local storage */
     storeHS();
@@ -80,13 +100,13 @@ function init() {
     // Get stored high scores from localStorage
     // Parsing the JSON string to an object
     var storedHS = JSON.parse(localStorage.getItem("highScores"));
-  
+
     // If high scores were retrieved from localStorage, update the high scores array to it
     if (storedHS === null) {
-        localStorage.setItem("highScores", JSON.stringify(highScores));      
+        localStorage.setItem("highScores", JSON.stringify(highScores));
     }
-  }
-  
+}
+
 
 function storeHS() {
     /* save highScores to local storage after channging object to String */
@@ -121,7 +141,7 @@ answerList.addEventListener("click", function (event) {
     event.preventDefault();
 
     /* check if text inside element user clicked on matches the correct answer */
-    if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum- 1]) != -1) {
+    if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum - 1]) != -1) {
         /* display 'Correct' since user answer matched */
         event.target.className = "correct";
         judgementEl.innerText = "Correct!";
@@ -144,9 +164,9 @@ answerList.addEventListener("click", function (event) {
         /* set score based upon time remaining */
         score = secondsLeft;
         /* display user score to screen */
-        currentScoreEl.textContent = currentScoreEl.textContent + "  " + score;
+        currentScoreEl.firstElementChild.textContent = score;
         /* decide if user answered final question correctly and display prompt */
-        if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum- 2]) != -1) {
+        if (event.target.innerText.indexOf(questionSet.correctanswer[questionNum - 2]) != -1) {
             verdictEl.innerText = "Correct!";
         } else {
             verdictEl.innerText = "Wrong answer!";
@@ -160,8 +180,10 @@ answerList.addEventListener("click", function (event) {
 });
 
 function sortFunction() {
-    highScores.sort(function(a, b){return b.score - a.score});
-  }
+    highScores.sort(function (a, b) {
+        return b.score - a.score
+    });
+}
 
 /* remove verdict when user changes text box initials field */
 playerInitialsEl.addEventListener("input", function () {
@@ -176,28 +198,28 @@ submitScoreEl.addEventListener("click", function () {
         initials: playerInitialsEl.value.trim(),
         score: score
     };
+    savedInitials = hsEntry.initials;
 
-if (hsEntry.initials !=="") {
-    /* switch screens */
-    personalScoreEl.className = "card-body hidden";
-    highScoresEl.className = "card-body";
-    navEl.className = "hidden";
+    if (hsEntry.initials !== "") {
+        /* switch screens */
+        personalScoreEl.className = "card-body hidden";
+        highScoresEl.className = "card-body";
+        navEl.className = "hidden";
 
-    /* retrieve current high scores from local storage */
-    var storedHS = JSON.parse(localStorage.getItem("highScores"));
-    if (storedHS !== null) {
-        highScores = storedHS;
-        /* add new high score to end of high scores array */
-        highScores.push(hsEntry);
+        /* retrieve current high scores from local storage */
+        var storedHS = JSON.parse(localStorage.getItem("highScores"));
+        if (storedHS !== null) {
+            highScores = storedHS;
+            /* add new high score to end of high scores array */
+            highScores.push(hsEntry);
+        }
+
+        sortFunction();
+        /* display the updated high score list to screen */
+        displayHS();
+    } else {
+        alert("Need to enter initials");
     }
-
-    sortFunction();
-    /* display the updated high score list to screen */
-    displayHS();
-}
-else {
-    alert("Need to enter initials");
-}
 
 });
 

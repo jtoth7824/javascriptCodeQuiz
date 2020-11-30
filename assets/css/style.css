@@ -18,7 +18,6 @@ body {
 }
 
 .navbarBkg {
-/*    background: gray;*/
     background: transparent;
 }
 
@@ -30,17 +29,6 @@ body {
     display: block;
     padding: .5rem 0 .5rem 1rem;
     font-size: 20px;
-}
-
-.brand {
-    background-color: rgb(115, 13, 199);
-    font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.aboutTextColor {
-    color: rgb(115, 13, 199);
 }
 
 /* Style the list items */
@@ -65,37 +53,10 @@ ul li {
     user-select: none;
 }
 
-ul li::marker {
-    color: black;
-}
-
 /* lighter background-color on hover */
-ul li:hover {
+.showSelection li:hover {
     background: #ddd;
     color: black;
-}
-
-/* When clicked on, add a background color */
-ul li.correct {
-    background: green;
-    color: #fff;
-}
-
-ul li.wrong {
-    background: red;
-    color: #fff;
-}
-
-.arrow {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-}
-
-.right {
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
 }
 
 .btnMyStyle {
@@ -118,22 +79,40 @@ ul li.wrong {
     border: 2px solid #aaa;
 }
 
-input[type="text"] {
-    border-radius: 25px;
-    outline: none;
-    transition: .3s;
-    box-sizing: border-box;
-    padding: 8px;
-    border: 2px solid #aaa;
-}
-
 input[type="text"]:focus {
     border-color: dodgerblue;
     box-shadow: 0 0 8px 0 dodgerblue;
-
 }
 
 hr.blueline {
     border: 1px solid rgb(18, 73, 155);
-    ;
 }
+
+.padding {
+    margin: 15px;
+}
+
+.scoreStyle {
+    background-color: red;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    width: 60px;
+    border-radius: 25px;
+}
+
+.try {
+    color: red;
+}
+
+/*.trybutton {
+    background-color: red;
+    color: white;
+}
+*/
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

@@ -51,7 +51,7 @@
                                     <h3 class="card-title question">replace</h3>
                                 </div>
                               <form id="answerform">
-                                  <ul id="answers"></ul>
+                                  <ul class="showSelection" id="answers"></ul>
                               </form>
                               <hr class="blueline">
                               <div>
@@ -61,12 +61,12 @@
                           <div class="card-body hidden" id="personalScore">
                               <div>
                                   <h2>All Done!</h2>
-                                  <h3 class="card-title" id="currentScore">Your score is: </h3>
+                                  <h3 class="card-title" id="currentScore">Your score is: <div class="scoreStyle btnMyStyle"></div></h3>
                               </div>
                               <div>
                                   <h4>Enter initials:</h4>
                                   <input type="text" class="playerInitials">
-                                  <input type="button" class="button-save btn-Submit btnMyStyle" value="Submit" id="saveScore">
+                                  <input type="button" class="btn padding btnMyStyle" value="Submit" id="saveScore">
                               </div>
                               <hr class="blueline">
                               <div>
@@ -79,7 +79,7 @@
                               </div>
                               <ul id="hsList"></ul>
                               <hr class="blueline">
-                              <div class="justify-content-center">
+                              <div class="center">
                                   <input type="button" class="btn btnMyStyle" value="Go Back" id="goBack">
                                   <input type="button" class="btn btnMyStyle" value="Clear Scores" id="resetScores">
                               </div>

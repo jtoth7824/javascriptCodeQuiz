@@ -36,6 +36,47 @@ var hsList = document.body.querySelector("#hsList");
 var answerList = document.querySelector("#answers");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
 
+/* View High Scores button listener */
+viewHSLinkEl.addEventListener("click", function () {
+    /* switch screens */
+    navEl.className = "hidden";
+    personalScoreEl.className = "card-body hidden";
+    startEl.className = "card-body hidden";
+    quizEl.className = "card-body hidden";
+    highScoresEl.className = "card-body";
+
+    /* retrieve current high scores from local storage */
+    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+    highScores = storedHS;
+    /* display the high score list on screen */
+    displayHS();
+});
+
+/* Reset High Score button listener */
+resetScoresEl.addEventListener("click", function () {
+    var lengthHS = highScores.length;
+
+    /* pop each element off from the end of array until array is empty */
+    for (var m = 0; m < lengthHS; m++) {
+        highScores.pop();
+    }
+    /* update local storage with empty high score array */
+    storeHS();
+    /* display the updated high score list to screen */
+    displayHS();
+});
+
+/* Reset Code Quiz button listener */
+goBackEl.addEventListener("click", function () {
+    /* Reload webpage to start Code Quiz again */
+    window.location.reload();
+});
+
+function storeHS() {
+    /* save highScores to local storage after channging object to String */
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
 function displayHS() {
     /* clear elements inside the ul tag to remove existing high scores*/
     hsList.innerHTML = "";
@@ -74,6 +115,54 @@ function displayHS() {
     storeHS();
 }
 
+function sortFunction() {
+    highScores.sort(function (a, b) {
+        return b.score - a.score
+    });
+}
+
+/* remove verdict when user changes text box initials field */
+playerInitialsEl.addEventListener("input", function () {
+    /* when user changes the initials field remove the Correct/Wrong indication */
+    verdictEl.className = "hidden";
+});
+
+/* Save personal Score button listener */
+submitScoreEl.addEventListener("click", function () {
+    /* populate object with initials and score */
+    var hsEntry = {
+        initials: playerInitialsEl.value.trim().toUpperCase(),
+        score: score
+    };
+
+    if(hsEntry.initials.length > 2) {
+        alert("Initials must be 2 characters only!");
+    } else {
+        savedInitials = hsEntry.initials;
+
+        if (hsEntry.initials !== "") {
+            /* switch screens */
+            personalScoreEl.className = "card-body hidden";
+            highScoresEl.className = "card-body";
+            navEl.className = "hidden";
+    
+            /* retrieve current high scores from local storage */
+            var storedHS = JSON.parse(localStorage.getItem("highScores"));
+            if (storedHS !== null) {
+                highScores = storedHS;
+                /* add new high score to end of high scores array */
+                highScores.push(hsEntry);
+            }
+    
+            sortFunction();
+            /* display the updated high score list to screen */
+            displayHS();
+        } else {
+            alert("Need to enter initials");
+        }
+    }
+});
+
 function displayAnswers() {
     var next = "choiceSet" + questionNum;
 
@@ -94,47 +183,24 @@ function displayAnswers() {
     }
 }
 
-init();
+/* Displays the next question/answer set based upon current questionNum variable */
+function nextQuestion() {
+    var questionEl = document.body.querySelector(".question");
 
-function init() {
-    // Get stored high scores from localStorage
-    // Parsing the JSON string to an object
-    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+    /* display current question */
+    questionEl.textContent = questionSet.javaQuestion[questionNum - 1];
 
-    // If high scores were retrieved from localStorage, update the high scores array to it
-    if (storedHS === null) {
-        localStorage.setItem("highScores", JSON.stringify(highScores));
-    }
-}
-
-
-function storeHS() {
-    /* save highScores to local storage after channging object to String */
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-}
-
-/* countdown timer function */
-function setTime() {
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        timeEl.textContent = "Time: " + secondsLeft;
-        /* check if timer reached 0 for quiz or if all questions have been displayed */
-        if (secondsLeft <= 0 || questionNum === 6) {
-            clearInterval(timerInterval);
-        }
-    }, 1000);
+    /* display matching answers to current question */
+    displayAnswers();
 };
 
-/* Code Quiz Start button listener */
-startEl.addEventListener("click", function () {
-    /* start timer for quiz */
-    setTime();
-    /* switch screens */
-    startEl.className = "card-body hidden";
-    quizEl.className = "card-body";
-    /* display first question/answer set */
-    nextQuestion();
-});
+function clearQuestion() {
+    var ans = document.querySelectorAll("#displayedAnswers");
+    /* remove all answers for current question from screen */
+    for (var i = 0; i < 4; i++) {
+        ans[i].remove();
+    }
+}
 
 /* event listener for answer buttons */
 answerList.addEventListener("click", function (event) {
@@ -162,7 +228,12 @@ answerList.addEventListener("click", function (event) {
         quizEl.className = "card-body hidden";
         personalScoreEl.className = "card-body";
         /* set score based upon time remaining */
-        score = secondsLeft;
+        if (secondsLeft <= 0) {
+            score = 0;
+        } else {
+            score = secondsLeft;
+        };
+/*        score = secondsLeft;*/
         /* display user score to screen */
         currentScoreEl.firstElementChild.textContent = score;
         /* decide if user answered final question correctly and display prompt */
@@ -179,101 +250,62 @@ answerList.addEventListener("click", function (event) {
     }
 });
 
-function sortFunction() {
-    highScores.sort(function (a, b) {
-        return b.score - a.score
-    });
+/* Code Quiz Start button listener */
+startEl.addEventListener("click", function () {
+    /* start timer for quiz */
+    setTime();
+    /* switch screens */
+    startEl.className = "card-body hidden";
+    quizEl.className = "card-body";
+    /* display first question/answer set */
+    nextQuestion();
+});
+
+function decSeconds() {
+    secondsLeft = 0;
+    questionNum = 6;
+    return secondsLeft;
 }
 
-/* remove verdict when user changes text box initials field */
-playerInitialsEl.addEventListener("input", function () {
-    /* when user changes the initials field remove the Correct/Wrong indication */
-    verdictEl.className = "hidden";
-});
+/* countdown timer function */
+function setTime() {
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+            decSeconds();
+        };
+        timeEl.textContent = "Time: " + secondsLeft;
+        /* check if timer reached 0 for quiz or if all questions have been displayed */
+        if (secondsLeft <= 0 || questionNum === 6) {
 
-/* Save personal Score button listener */
-submitScoreEl.addEventListener("click", function () {
-    /* populate object with initials and score */
-    var hsEntry = {
-        initials: playerInitialsEl.value.trim(),
-        score: score
-    };
-    savedInitials = hsEntry.initials;
-
-    if (hsEntry.initials !== "") {
-        /* switch screens */
-        personalScoreEl.className = "card-body hidden";
-        highScoresEl.className = "card-body";
-        navEl.className = "hidden";
-
-        /* retrieve current high scores from local storage */
-        var storedHS = JSON.parse(localStorage.getItem("highScores"));
-        if (storedHS !== null) {
-            highScores = storedHS;
-            /* add new high score to end of high scores array */
-            highScores.push(hsEntry);
+            if (questionNum === 6) {
+                /* switch screens */
+                quizEl.className = "card-body hidden";
+                personalScoreEl.className = "card-body";
+                /* set score based upon time remaining */
+                if (secondsLeft <= 0) {
+                    score = 0;
+                } else {
+                    score = secondsLeft;
+                };
+        /*        score = secondsLeft;*/
+                /* display user score to screen */
+                currentScoreEl.firstElementChild.textContent = score;
+            }
+            clearInterval(timerInterval);
         }
-
-        sortFunction();
-        /* display the updated high score list to screen */
-        displayHS();
-    } else {
-        alert("Need to enter initials");
-    }
-
-});
-
-/* View High Scores button listener */
-viewHSLinkEl.addEventListener("click", function () {
-    /* switch screens */
-    navEl.className = "hidden";
-    personalScoreEl.className = "card-body hidden";
-    startEl.className = "card-body hidden";
-    quizEl.className = "card-body hidden";
-    highScoresEl.className = "card-body";
-
-    /* retrieve current high scores from local storage */
-    var storedHS = JSON.parse(localStorage.getItem("highScores"));
-    highScores = storedHS;
-    /* display the high score list on screen */
-    displayHS();
-});
-
-/* Reset High Score button listener */
-resetScoresEl.addEventListener("click", function () {
-    var lengthHS = highScores.length;
-
-    /* pop each element off from the end of array until array is empty */
-    for (var m = 0; m < lengthHS; m++) {
-        highScores.pop();
-    }
-    /* update local storage with empty high score array */
-    storeHS();
-    /* display the updated high score list to screen */
-    displayHS();
-});
-
-/* Reset Code Quiz button listener */
-goBackEl.addEventListener("click", function () {
-    /* Reload webpage to start Code Quiz again */
-    window.location.reload();
-});
-
-/* Displays the next question/answer set based upon current questionNum variable */
-function nextQuestion() {
-    var questionEl = document.body.querySelector(".question");
-
-    /* display current question */
-    questionEl.textContent = questionSet.javaQuestion[questionNum - 1];
-
-    /* display matching answers to current question */
-    displayAnswers();
+    }, 1000);
 };
 
-function clearQuestion() {
-    var ans = document.querySelectorAll("#displayedAnswers");
-    /* remove all answers for current question from screen */
-    for (var i = 0; i < 4; i++) {
-        ans[i].remove();
+function init() {
+    // Get stored high scores from localStorage
+    // Parsing the JSON string to an object
+    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+
+    // If high scores were retrieved from localStorage, update the high scores array to it
+    if (storedHS === null) {
+        localStorage.setItem("highScores", JSON.stringify(highScores));
     }
 }
+
+init();

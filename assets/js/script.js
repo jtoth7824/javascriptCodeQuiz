@@ -74,6 +74,20 @@ function displayAnswers() {
     }
 }
 
+init();
+
+function init() {
+    // Get stored high scores from localStorage
+    // Parsing the JSON string to an object
+    var storedHS = JSON.parse(localStorage.getItem("highScores"));
+  
+    // If high scores were retrieved from localStorage, update the high scores array to it
+    if (storedHS === null) {
+        localStorage.setItem("highScores", JSON.stringify(highScores));      
+    }
+  }
+  
+
 function storeHS() {
     /* save highScores to local storage after channging object to String */
     localStorage.setItem("highScores", JSON.stringify(highScores));
@@ -147,7 +161,6 @@ answerList.addEventListener("click", function (event) {
 
 function sortFunction() {
     highScores.sort(function(a, b){return b.score - a.score});
-    console.log(highScores);
   }
 
 /* remove verdict when user changes text box initials field */
@@ -164,8 +177,6 @@ submitScoreEl.addEventListener("click", function () {
         score: score
     };
 
-console.log(hsEntry);
-console.log(hsEntry.initials);
 if (hsEntry.initials !=="") {
     /* switch screens */
     personalScoreEl.className = "card-body hidden";
@@ -174,9 +185,12 @@ if (hsEntry.initials !=="") {
 
     /* retrieve current high scores from local storage */
     var storedHS = JSON.parse(localStorage.getItem("highScores"));
-    highScores = storedHS;
-    /* add new high score to end of high scores array */
-    highScores.push(hsEntry);
+    if (storedHS !== null) {
+        highScores = storedHS;
+        /* add new high score to end of high scores array */
+        highScores.push(hsEntry);
+    }
+
     sortFunction();
     /* display the updated high score list to screen */
     displayHS();

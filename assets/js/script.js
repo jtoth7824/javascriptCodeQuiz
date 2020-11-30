@@ -35,6 +35,7 @@ var navEl = document.body.querySelector("#topNav");
 var hsList = document.body.querySelector("#hsList");
 var answerList = document.querySelector("#answers");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
+var promptEl = document.querySelector("#prompt");
 
 /* View High Scores button listener */
 viewHSLinkEl.addEventListener("click", function () {
@@ -49,6 +50,8 @@ viewHSLinkEl.addEventListener("click", function () {
     var storedHS = JSON.parse(localStorage.getItem("highScores"));
     highScores = storedHS;
     /* display the high score list on screen */
+    promptEl.className = "hidden";
+    hsList.className = "hsListOld";
     displayHS();
 });
 
@@ -63,6 +66,8 @@ resetScoresEl.addEventListener("click", function () {
     /* update local storage with empty high score array */
     storeHS();
     /* display the updated high score list to screen */
+    hsList.className = "hsListOld";
+    promptEl.className = "hidden";
     displayHS();
 });
 
@@ -94,9 +99,7 @@ function displayHS() {
 
        /* append high score as a child to the ul tag (hsList) */
         if (score === highScores[i].score && savedInitials === highScores[i].initials) {
-            li.style.display = "inline-block";
-            li.style.backgroundColor = "red";
-            li.style.width = "150px";
+            li.className = "hsScoreCurrent";
             /* append high score as a child to the ul tag (hsList) */
             /*keep the following line!!!!!!*/
             hsList.appendChild(li);            
@@ -108,7 +111,8 @@ function displayHS() {
         else {
             /* append high score as a child to the ul tag (hsList) */
             /*keep the following line!!!!!!*/
-            li.style.width = "150px";
+            li.className = "hsScoreOld"
+            promptEl.className = "";
             hsList.appendChild(li);
         }
 
@@ -158,6 +162,7 @@ submitScoreEl.addEventListener("click", function () {
     
             sortFunction();
             /* display the updated high score list to screen */
+            hsList.className = "hsList";
             displayHS();
         } else {
             alert("Need to enter initials");

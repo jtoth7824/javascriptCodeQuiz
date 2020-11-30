@@ -45,22 +45,22 @@ function displayHS() {
         var li = document.createElement("li");
 
         /* set user initials and score for li tag */
-        li.textContent = (i + 1) + ".  " + highScores[i].initials + "  :   " + highScores[i].score;
+        li.textContent = (i + 1) + ". " + highScores[i].initials + "  :   " + highScores[i].score;
 
         /* append high score as a child to the ul tag (hsList) */
         /*keep the following line!!!!!!*/
 /*        hsList.appendChild(li);*/
 
+       /* append high score as a child to the ul tag (hsList) */
         if (score === highScores[i].score && savedInitials === highScores[i].initials) {
-            li.className = "tryButton";
             li.style.display = "inline-block";
             li.style.backgroundColor = "red";
             /* append high score as a child to the ul tag (hsList) */
             /*keep the following line!!!!!!*/
             hsList.appendChild(li);            
             var div = document.createElement("span");
-            div.textContent = "<---- Your current score";
-            div.className = "try";
+            div.textContent = "<-- Your score";
+            div.className = "currentScoreIndicator";
             hsList.appendChild(div);
         }
         else {

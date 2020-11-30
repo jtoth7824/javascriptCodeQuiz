@@ -35,7 +35,7 @@ body {
 ul li {
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 12px 8px 12px 20px;
     list-style-type: none;
     /*    background: #eee;*/
     background: rgb(18, 73, 155);
@@ -51,6 +51,10 @@ ul li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+ul li .hsScore {
+    width: 100px;
 }
 
 /* lighter background-color on hover */
@@ -97,7 +101,7 @@ hr.blueline {
     text-align: center;
     color: white;
     display: inline-block;
-    width: 60px;
+    width: 40px;
     border-radius: 25px;
 }
 

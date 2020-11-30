@@ -96,6 +96,7 @@ function displayHS() {
         if (score === highScores[i].score && savedInitials === highScores[i].initials) {
             li.style.display = "inline-block";
             li.style.backgroundColor = "red";
+            li.style.width = "150px";
             /* append high score as a child to the ul tag (hsList) */
             /*keep the following line!!!!!!*/
             hsList.appendChild(li);            
@@ -107,6 +108,7 @@ function displayHS() {
         else {
             /* append high score as a child to the ul tag (hsList) */
             /*keep the following line!!!!!!*/
+            li.style.width = "150px";
             hsList.appendChild(li);
         }
 

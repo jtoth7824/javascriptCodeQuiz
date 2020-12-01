@@ -17,13 +17,16 @@
             <nav class="navbar navbar-expand navbar-expand-xs navbar-light navbarBkg" id="topNav">
                 <!--Applied custom styles, also utilized mr-auto class to shift menu options to right-->
                 <nav class="mr-auto navbar navbar-light">
-                    <!-- View High Scores -->
+                    <!-- View High Scores link -->
                     <form class="form-inline">
                         <button class="btn btnMyStyle" id="viewHSLink" type="button">View High Scores</button>
                     </form>
                 </nav>
                 <!-- timer display area -->
                 <nav class="navbar navbar-expand-xs">
+                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
+                    <!-- <span class="navbar-toggler-icon"></span> -->
+                    <!-- </button> -->
                     <article class="collapse navbar-collapse" id="navbarNav">
                         <h2 class="invisible">Menu options for website</h2>
                         <h2 class="timer">Time: 0</h2>
@@ -32,103 +35,89 @@
             </nav>
             <div>
                 <!-- container used to center quiz on screen using bootstrap grid-->
-                <div class="container">
-                    <div class="row center">
+                <div class="container justify-content-center">
+                    <section class="row">
+                        <h1 class="invisible">First row of grid</h1>
                         <!--Applied particular classes for sizing appropriately in browser-->
-                        <div class="marginBottomCol">
+                        <section class="col-lg-8 col-md-8 col-sm-12 col-xs-12 marginBottomCol">
+                            <h2 class="invisible">card</h2>
                             <!-- bootstrap card containing the javascript quiz-->
-                            <div class="col">
-                                <div class="card cardWidth">
-                                    <!-- card body with initial text and Start button -->
-                                    <article class="card-body" id="start">
-                                        <h3 class="card-title center">Code Quiz Challenge</h3>
-                                        <p class="card-text center">Try to answer the following Javascript questions to
-                                            see how well you do.</p>
-                                        <!-- Start button for quiz -->
-                                        <div class="center"><input class="btn btnMyStyle" type="submit"
-                                                value="Start Quiz"></div>
-                                    </article>
-                                    <!-- layout for question/answer set -->
-                                    <div class="card-body hidden" id="quiz">
+                            <section class="card">
+                                <h3 class="invisible">Quiz</h3>
+                                <!-- card body with initial text and Start button -->
+                                <article class="card-body" id="start">
+                                    <h3 class="card-title">Code Quiz Challenge</h3>
+                                    <p class="card-text">Try to answer the following Javascript questions to see how
+                                        well you do.</p>
+                                    <!-- Start button for quiz -->
+                                    <div class="justify-content-center"><input class="btn btnMyStyle" type="submit"
+                                            value="Start Quiz"></div>
+                                </article>
+                                <!-- layout for question/answer set -->
+                                <div class="card-body hidden justify-content-center" id="quiz">
+                                    <div>
                                         <h3 class="card-title question">replace</h3>
-                                        <form id="answerform">
-                                            <div class="center">
-                                                <!-- unordered list of answers generated dynamically in javascript -->
-                                                <ul class="showSelection ulList" id="answers"></ul>
-                                            </div>
-                                        </form>
-                                        <!-- horizontal ruler dividing card sections -->
-                                        <hr class="blueline">
-                                        <!-- displays whether user guessed correctly or incorrectly-->
-                                        <div>
-                                            <p class="judgement center"></p>
-                                        </div>
                                     </div>
-                                    <!-- layout for quiz end and entry of user initials for high score list -->
-                                    <div class="card-body hidden" id="personalScore">
-                                        <div>
-                                            <h2>All Done!</h2>
-                                            <h3 class="card-title" id="currentScore">Your score is: <a
-                                                    class="scoreStyle btnMyStyle"></a></h3>
-                                        </div>
-                                        <div>
-                                            <h4>Enter initials:</h4>
-                                            <input type="text" class="playerInitials">
-                                            <!-- submit button to save the high score -->
-                                            <input type="button" class="btn padding btnMyStyle" value="Submit"
-                                                id="saveScore">
-                                        </div>
-                                        <!-- horizontal ruler dividing card sections -->
-                                        <hr class="blueline">
-                                        <!-- displays whether user guessed correctly or incorrectly for final question -->
-                                        <div>
-                                            <p class="center verdict"></p>
-                                        </div>
-                                    </div>
-                                    <!-- layout for high score list -->
-                                    <div class="card-body hidden" id="highScores">
-                                        <div class="center">
-                                            <h2>High Scores</h2>
-                                        </div>
-                                        <div class="center">
-                                            <h5 id="prompt" class="hidden">(Current score in red)</h5>
-                                        </div>
-                                        <!-- unordered list for high scores -->
-                                        <div class="center">
-                                            <ul id="hsList" class="hsList"></ul>
-                                        </div>
-                                        <!-- horizontal ruler for dividing card sections -->
-                                        <hr class="blueline">
-                                        <!-- buttons to reset high score list or go back and restart quiz -->
-                                        <div class="center">
-                                            <input type="button" class="btn btnMyStyle padding" value="Go Back"
-                                                id="goBack">
-                                            <input type="button" class="btn btnMyStyle padding" value="Clear Scores"
-                                                id="resetScores">
-                                        </div>
+                                    <form id="answerform">
+                                        <!-- unordered list of answers generated dynamically in javascript -->
+                                        <ul class="showSelection" id="answers"></ul>
+                                    </form>
+                                    <!-- horizontal ruler dividing card sections -->
+                                    <hr class="blueline">
+                                    <!-- displays whether user guessed correctly or incorrectly-->
+                                    <div>
+                                        <p class="judgement"></p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                                <!-- layout for quiz end and entry of user initials for high score list -->
+                                <div class="card-body hidden" id="personalScore">
+                                    <div>
+                                        <h2>All Done!</h2>
+                                        <h3 class="card-title" id="currentScore">Your score is: <a
+                                                class="scoreStyle btnMyStyle"></a></h3>
+                                    </div>
+                                    <div>
+                                        <h4>Enter initials:</h4>
+                                        <input type="text" class="playerInitials">
+                                        <!-- submit button to save the high score -->
+                                        <input type="button" class="btn padding btnMyStyle" value="Submit"
+                                            id="saveScore">
+                                    </div>
+                                    <!-- horizontal ruler dividing card sections -->
+                                    <hr class="blueline">
+                                    <!-- displays whether user guessed correctly or incorrectly for final question -->
+                                    <div>
+                                        <p class="verdict"></p>
+                                    </div>
+                                </div>
+                                <!-- layout for high score list -->
+                                <div class="card-body hidden" id="highScores">
+                                    <div class="center">
+                                        <h2>High Scores</h2>
+                                    </div>
+                                    <div class="center">
+                                        <h5 id="prompt" class="hidden">(Current score in red)</h5>
+                                    </div>
+                                    <!-- unordered list for high scores -->
+                                    <div class="center">
+                                        <ul id="hsList" class="hsList"></ul>
+                                    </div>
+                                    <!-- horizontal ruler for dividing card sections -->
+                                    <hr class="blueline">
+                                    <!-- buttons to reset high score list or go back and restart quiz -->
+                                    <div class="center">
+                                        <input type="button" class="btn btnMyStyle padding" value="Go Back" id="goBack">
+                                        <input type="button" class="btn btnMyStyle padding" value="Clear Scores"
+                                            id="resetScores">
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </section>
                 </div>
             </div>
         </div>
     </main>
-    <!--Utilized another grid to display a sticky footer -->
-    <div class="background container-fluid">
-        <div class="fixed-bottom">
-            <div class="row">
-                <div class="col">
-                    <!--Applied custom styling to the footer tag-->
-                    <footer class="myFooter brand text-center">
-                        &copy; John Toth 2020
-                    </footer>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Bootstrap includes -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">

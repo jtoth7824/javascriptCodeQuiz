@@ -6,7 +6,7 @@ var savedInitials = "";
 var highScores = [];
 /* Question/answer set */
 var questionSet = {
-    javaQuestion: ["Commonly used data types do NOT include:", "Condition in If/Else statement is enclosed within:", "Arrays in javascript can be used to store:", "String values must be enclosed within ______ when being assigned", "A very useful tool used during development and \n debugging for printing content to the debugger is:"],
+    javaQuestion: ["Commonly used data types do NOT include:", "Condition in If/Else statement is enclosed within:", "Arrays in javascript can be used to store:", "String values must be enclosed within ______ when being assigend", "A very useful tool used during development and \n debugging for printing content to the debugger is:"],
     choiceSet1: ["Strings", "Booleans", "Alerts", "Numbers"],
     choiceSet2: ["Quotes", "Curly Brackets", "Parentheses", "Square Brackets"],
     choiceSet3: ["Numbers & Strings", "Other Arrays", "Booleans", "All of the above"],
@@ -33,7 +33,6 @@ var hsList = document.body.querySelector("#hsList");
 var answerList = document.querySelector("#answers");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
 var promptEl = document.querySelector("#prompt");
-var colEl = document.querySelector(".col");
 
 /* View High Scores button listener */
 viewHSLinkEl.addEventListener("click", function () {
@@ -49,7 +48,6 @@ viewHSLinkEl.addEventListener("click", function () {
     highScores = storedHS;
     /* display the high score list on screen */
     promptEl.className = "hidden";
-    colEl.className = colEl.className + " " + "colPadding";
     displayHS();
 });
 
@@ -65,7 +63,6 @@ resetScoresEl.addEventListener("click", function () {
     storeHS();
     /* display the updated high score list to screen */
     promptEl.className = "hidden";
-    colEl.className = colEl.className + " " + "colPadding";
     displayHS();
 });
 
@@ -148,7 +145,6 @@ submitScoreEl.addEventListener("click", function () {
             sortFunction();
             /* display the updated high score list to screen */
             hsList.className = "hsList";
-            colEl.className = colEl.className + " " + "colPadding";
             displayHS();
         } else {
             alert("Need to enter initials");

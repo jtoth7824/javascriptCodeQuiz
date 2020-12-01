@@ -24,16 +24,6 @@ body {
     background: transparent;
 }
 
-/* style to keep card width at a set amount */
-.cardWidth {
-    width: 40rem;
-}
-
-/* added a bit of padding to top of high score list */
-.colPadding {
-    padding: 78px 0px 0px 0px;
-}
-
 /* Style the list items */
 ul li {
     cursor: pointer;
@@ -63,10 +53,6 @@ ul li.hsScoreCurrent {
 
 ul li.hsScoreOld {
     width: 125px;
-}
-
-.ulList {
-    padding-inline-start: 0px;
 }
 
 /* lighter background-color on hover */
@@ -133,19 +119,4 @@ hr.blueline {
 /* remove padding from in front of unordered list of high scores */
 .hsList {
     padding-inline-start: 0px;
-}
-
-/* styling for the footer */
-.myFooter {
-    padding: 5px 0;
-    margin: 0;
-    background: transparent;
-    color: rgb(18, 73, 155);
-}
-
-.brand {
- /*   background-color: rgb(18, 73, 155);*/
-    font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }

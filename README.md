@@ -35,9 +35,9 @@ The following is a screenshot of the quiz high score list.
 
 ## Setup/Installation Requirements
 
-Direct link to repository:  https://github.com/jtoth7824/javascriptQuiz
+Direct link to repository:  https://github.com/jtoth7824/javascriptCodeQuiz
 
-Direct link to Javascript Quiz webpage:  https://jtoth7824.github.io/javascriptQuiz/
+Direct link to Javascript Quiz webpage:  https://jtoth7824.github.io/javascriptCodeQuiz/
 
 ## Support and contact details
 
@@ -45,8 +45,8 @@ Please email me for further questions at jtoth7824@gmail.com
 
 ## Technologies Used
 
-Javascript
-Local Storage
-HTML
-CSS
-Bootstrap components
+<div>Javascript</div>
+<div>Local Storage</div>
+<div>HTML</div>
+<div>CSS</div>
+<div>Bootstrap components</div>

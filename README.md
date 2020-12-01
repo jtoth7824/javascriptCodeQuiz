@@ -15,22 +15,22 @@ When the last quiz question is answered, the quiz completes and user is presente
 The following is a screenshot of the opening quiz application page.
 
 <p align="center">
-  <img src="./assets/images/AboutMe.png" alt="Javascript Quiz Start screenshot">
+  <img src="./assets/images/StartScreenJavascriptQuiz.png" alt="Javascript Quiz Start screenshot">
 </p>
 
 The following is a screenshot of the quiz questions and choices.
 <p align="center">
-  <img src="./assets/images/Contact.png" alt="Javascript Quiz question/answers screenshot">
+  <img src="./assets/images/JavascriptQuizQuestionScreen.png" alt="Javascript Quiz question/answers screenshot">
 </p>
 
 The following is a screenshot of the quiz completion screen where user enters their initials and submits high score.
 <p align="center">
-  <img src="./assets/images/Portfolio.png" alt="Javascript Quiz submit user initials/score screenshot">
+  <img src="./assets/images/SubmitQuizScoreScreen.png" alt="Javascript Quiz submit user initials/score screenshot">
 </p>
 
 The following is a screenshot of the quiz high score list.
 <p align="center">
-  <img src="./assets/images/Portfolio.png" alt="Javascript Quiz high score list screenshot">
+  <img src="./assets/images/ViewHighScoreList.png" alt="Javascript Quiz high score list screenshot">
 </p>
 
 ## Setup/Installation Requirements

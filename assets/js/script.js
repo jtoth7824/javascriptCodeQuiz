@@ -1,6 +1,5 @@
-/* global variables */
+/* scope is global */
 var secondsLeft = 75;
-var personalScore;
 var questionNum = 1;
 var score = 0;
 var savedInitials = "";
@@ -15,17 +14,15 @@ var questionSet = {
     choiceSet5: ["javascript", "terminal/bash", "for loop", "console.log"],
     correctanswer: ["Alerts", "Curly Brackets", "All of the above", "Quotes", "console.log"],
 };
-/* global variables for html elements */
+/* scope is global for html elements */
 var timeEl = document.querySelector(".timer");
 var judgementEl = document.body.querySelector(".judgement");
 var personalScoreEl = document.body.querySelector("#personalScore");
 var highScoresEl = document.body.querySelector("#highScores");
 var startEl = document.querySelector("#start");
-var buttonEl = document.querySelectorAll(".input");
 var quizEl = document.querySelector("#quiz");
 var startEl = document.querySelector("#start");
 var currentScoreEl = document.body.querySelector("#currentScore");
-var highScoreEl = document.body.querySelectorAll(".textBox");
 var playerInitialsEl = document.body.querySelector(".playerInitials");
 var submitScoreEl = document.body.querySelector("#saveScore");
 var resetScoresEl = document.body.querySelector("#resetScores");
@@ -51,7 +48,6 @@ viewHSLinkEl.addEventListener("click", function () {
     highScores = storedHS;
     /* display the high score list on screen */
     promptEl.className = "hidden";
-    hsList.className = "hsListOld";
     displayHS();
 });
 
@@ -66,7 +62,6 @@ resetScoresEl.addEventListener("click", function () {
     /* update local storage with empty high score array */
     storeHS();
     /* display the updated high score list to screen */
-    hsList.className = "hsListOld";
     promptEl.className = "hidden";
     displayHS();
 });
@@ -94,28 +89,16 @@ function displayHS() {
         li.textContent = (i + 1) + ". " + highScores[i].initials + "  :   " + highScores[i].score;
 
         /* append high score as a child to the ul tag (hsList) */
-        /*keep the following line!!!!!!*/
-/*        hsList.appendChild(li);*/
-
-       /* append high score as a child to the ul tag (hsList) */
         if (score === highScores[i].score && savedInitials === highScores[i].initials) {
             li.className = "hsScoreCurrent";
             /* append high score as a child to the ul tag (hsList) */
-            /*keep the following line!!!!!!*/
-            hsList.appendChild(li);            
-            var div = document.createElement("span");
-            div.textContent = "<-- Your score";
-            div.className = "currentScoreIndicator";
-            hsList.appendChild(div);
-        }
-        else {
-            /* append high score as a child to the ul tag (hsList) */
-            /*keep the following line!!!!!!*/
-            li.className = "hsScoreOld"
+            hsList.appendChild(li);
             promptEl.className = "";
+        } else {
+            /* append high score as a child to the ul tag (hsList) */
+            li.className = "hsScoreOld";
             hsList.appendChild(li);
         }
-
     }
     /* save high scores to local storage */
     storeHS();
@@ -123,7 +106,7 @@ function displayHS() {
 
 function sortFunction() {
     highScores.sort(function (a, b) {
-        return b.score - a.score
+        return b.score - a.score;
     });
 }
 
@@ -141,7 +124,7 @@ submitScoreEl.addEventListener("click", function () {
         score: score
     };
 
-    if(hsEntry.initials.length > 2) {
+    if (hsEntry.initials.length > 2) {
         alert("Initials must be 2 characters only!");
     } else {
         savedInitials = hsEntry.initials;
@@ -151,7 +134,7 @@ submitScoreEl.addEventListener("click", function () {
             personalScoreEl.className = "card-body hidden";
             highScoresEl.className = "card-body";
             navEl.className = "hidden";
-    
+
             /* retrieve current high scores from local storage */
             var storedHS = JSON.parse(localStorage.getItem("highScores"));
             if (storedHS !== null) {
@@ -159,7 +142,6 @@ submitScoreEl.addEventListener("click", function () {
                 /* add new high score to end of high scores array */
                 highScores.push(hsEntry);
             }
-    
             sortFunction();
             /* display the updated high score list to screen */
             hsList.className = "hsList";
@@ -199,7 +181,7 @@ function nextQuestion() {
 
     /* display matching answers to current question */
     displayAnswers();
-};
+}
 
 function clearQuestion() {
     var ans = document.querySelectorAll("#displayedAnswers");
@@ -227,7 +209,7 @@ answerList.addEventListener("click", function (event) {
         secondsLeft = secondsLeft - 15;
         /* increment to next question */
         questionNum = questionNum + 1;
-    };
+    }
 
     /* check if end of quiz due to no more questions in array */
     if (questionNum === 6) {
@@ -239,8 +221,7 @@ answerList.addEventListener("click", function (event) {
             score = 0;
         } else {
             score = secondsLeft;
-        };
-/*        score = secondsLeft;*/
+        }
         /* display user score to screen */
         currentScoreEl.firstElementChild.textContent = score;
         /* decide if user answered final question correctly and display prompt */
@@ -248,7 +229,7 @@ answerList.addEventListener("click", function (event) {
             verdictEl.innerText = "Correct!";
         } else {
             verdictEl.innerText = "Wrong answer!";
-        };
+        }
     } else {
         /* clear question from screen when advancing to next quiz question */
         clearQuestion();
@@ -280,7 +261,7 @@ function setTime() {
         secondsLeft--;
         if (secondsLeft <= 0) {
             decSeconds();
-        };
+        }
         timeEl.textContent = "Time: " + secondsLeft;
         /* check if timer reached 0 for quiz or if all questions have been displayed */
         if (secondsLeft <= 0 || questionNum === 6) {
@@ -294,15 +275,14 @@ function setTime() {
                     score = 0;
                 } else {
                     score = secondsLeft;
-                };
-        /*        score = secondsLeft;*/
+                }
                 /* display user score to screen */
                 currentScoreEl.firstElementChild.textContent = score;
             }
             clearInterval(timerInterval);
         }
     }, 1000);
-};
+}
 
 function init() {
     // Get stored high scores from localStorage

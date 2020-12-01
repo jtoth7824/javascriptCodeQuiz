@@ -1,7 +1,9 @@
+/* used to hide html elements on page */
 .hidden {
     display: none;
 }
 
+/* setting up background image to cover entire page */
 html,
 body,
 .background {
@@ -17,18 +19,9 @@ body {
     background-size: cover;
 }
 
+/* make navbar transparent to blend in */
 .navbarBkg {
     background: transparent;
-}
-
-.captionSize {
-    font-size: 24px;
-}
-
-.johnNavLink {
-    display: block;
-    padding: .5rem 0 .5rem 1rem;
-    font-size: 20px;
 }
 
 /* Style the list items */
@@ -56,13 +49,10 @@ ul li {
 ul li.hsScoreCurrent {
     width: 125px;
     background-color: red;
-    display: inline-block;
-    padding: 12px 8px 12px 12px;
 }
 
 ul li.hsScoreOld {
     width: 125px;
-    padding: 12px 8px 12px 12px;
 }
 
 /* lighter background-color on hover */
@@ -71,6 +61,7 @@ ul li.hsScoreOld {
     color: black;
 }
 
+/* change look of list items */
 .btnMyStyle {
     color: white;
     background-color: rgb(18, 73, 155);
@@ -78,10 +69,12 @@ ul li.hsScoreOld {
     border-radius: 25px;
 }
 
+/* change text color to white when hovering */
 .btn:hover {
-   color: white;
+    color: white;
 }
 
+/* input box for player initials */
 .playerInitials {
     border-radius: 25px;
     outline: none;
@@ -96,14 +89,17 @@ input[type="text"]:focus {
     box-shadow: 0 0 8px 0 dodgerblue;
 }
 
+/* styling horizontal ruler used as divider */
 hr.blueline {
     border: 1px solid rgb(18, 73, 155);
 }
 
+/* general padding amount */
 .padding {
     margin: 15px;
 }
 
+/* style for actual user score before adding to high score list */
 .scoreStyle {
     background-color: red;
     text-align: center;
@@ -113,20 +109,14 @@ hr.blueline {
     border-radius: 25px;
 }
 
-.currentScoreIndicator {
-    color: red;
-}
-
+/* centering elements */
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .hsList {
-      padding-inline-start: 100px;
-  }
-
-  .hsListOld {
-      padding-inline-start: 0px;
-  }
+/* remove padding from in front of unordered list of high scores */
+.hsList {
+    padding-inline-start: 0px;
+}

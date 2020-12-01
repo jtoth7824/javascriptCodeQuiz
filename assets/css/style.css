@@ -134,3 +134,18 @@ hr.blueline {
 .hsList {
     padding-inline-start: 0px;
 }
+
+/* styling for the footer */
+.myFooter {
+    padding: 5px 0;
+    margin: 0;
+    background: transparent;
+    color: rgb(18, 73, 155);
+}
+
+.brand {
+ /*   background-color: rgb(18, 73, 155);*/
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

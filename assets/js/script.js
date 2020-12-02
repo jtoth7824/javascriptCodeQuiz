@@ -19,7 +19,6 @@ var timeEl = document.querySelector(".timer");
 var judgementEl = document.body.querySelector(".judgement");
 var personalScoreEl = document.body.querySelector("#personalScore");
 var highScoresEl = document.body.querySelector("#highScores");
-var startEl = document.querySelector("#start");
 var quizEl = document.querySelector("#quiz");
 var startEl = document.querySelector("#start");
 var currentScoreEl = document.body.querySelector("#currentScore");
@@ -33,6 +32,7 @@ var hsList = document.body.querySelector("#hsList");
 var answerList = document.querySelector("#answers");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
 var promptEl = document.querySelector("#prompt");
+var colEl = document.querySelectorAll(".col");
 
 /* View High Scores button listener */
 viewHSLinkEl.addEventListener("click", function () {
@@ -48,6 +48,10 @@ viewHSLinkEl.addEventListener("click", function () {
     highScores = storedHS;
     /* display the high score list on screen */
     promptEl.className = "hidden";
+    for(var m=0; m<colEl.length; m++) {
+        colEl[m].className = colEl[m].className + " " + "colPadding";
+    }
+
     displayHS();
 });
 
@@ -63,6 +67,10 @@ resetScoresEl.addEventListener("click", function () {
     storeHS();
     /* display the updated high score list to screen */
     promptEl.className = "hidden";
+    for (var m=0; m<colEl.length; m++) {
+        colEl[m].className = colEl[m].className + " " + "colPadding";
+    }
+
     displayHS();
 });
 
@@ -145,6 +153,9 @@ submitScoreEl.addEventListener("click", function () {
             sortFunction();
             /* display the updated high score list to screen */
             hsList.className = "hsList";
+            for (var m=0; m<colEl.length; m++) {
+                colEl[m].className = colEl[m].className + " " + "colPadding";
+            }
             displayHS();
         } else {
             alert("Need to enter initials");

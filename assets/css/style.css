@@ -24,11 +24,6 @@ body {
     background: transparent;
 }
 
-/* style to keep card width at a set amount */
-.cardWidth {
-    width: 40rem;
-}
-
 /* added a bit of padding to top of high score list */
 .colPadding {
     padding: 78px 0px 0px 0px;

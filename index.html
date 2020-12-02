@@ -24,9 +24,6 @@
                 </nav>
                 <!-- timer display area -->
                 <nav class="navbar navbar-expand-xs">
-                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
-                    <!-- <span class="navbar-toggler-icon"></span> -->
-                    <!-- </button> -->
                     <article class="collapse navbar-collapse" id="navbarNav">
                         <h2 class="invisible">Menu options for website</h2>
                         <h2 class="timer">Time: 0</h2>
@@ -35,46 +32,30 @@
             </nav>
             <div>
                 <!-- container used to center quiz on screen using bootstrap grid-->
-                <!-- remove justify   DONE-->
                 <div class="container">
-                    <!-- add center make div  DONE-->
                     <div class="row center">
-                        <!-- <div class="marginbottomCol">-->
-                         <!-- <h1 class="invisible">First row of grid</h1> -->
                         <!--Applied particular classes for sizing appropriately in browser-->
-                        <!-- make div make just col-->
                         <div class="col">
                         </div>
                         <div class="col marginBottomCol">
-                             <!-- <h2 class="invisible">card</h2> -->
                             <!-- bootstrap card containing the javascript quiz-->
-                            <!-- cardWidth broke it on phone-->
-                            <!--make div-->
                             <div class="card">
-                                 <!-- <h3 class="invisible">Quiz</h3> -->
                                 <!-- card body with initial text and Start button -->
                                 <article class="card-body" id="start">
-                                    <!-- add center DONE-->
                                     <h3 class="card-title center">Code Quiz Challenge</h3>
-                                    <!-- add center DONE-->
-                                    <p class="card-text center">Try to answer the following Javascript questions to see how
-                                        well you do.  Time is subtracted from clock for each incorrect answer. </p>
+                                    <p class="card-text center">Try to answer the following Javascript questions to see
+                                        how
+                                        well you do. Time is subtracted from clock for each incorrect answer. </p>
                                     <!-- Start button for quiz -->
-                                    <!-- make just center DONE-->
-                                    <div class="center"><input class="btn btnMyStyle" type="submit"
-                                             value="Start Quiz"></div>
+                                    <div class="center"><input class="btn btnMyStyle" type="submit" value="Start Quiz">
+                                    </div>
                                 </article>
                                 <!-- layout for question/answer set -->
-                                <!-- remove justify DONE-->
                                 <div class="card-body hidden" id="quiz">
                                     <!-- remove div-->
-                                    <div>
-                                        <h3 class="card-title question">replace</h3>
-                                    </div>
+                                    <h3 class="card-title question">replace</h3>
                                     <form id="answerform">
-                                        <!-- add div center DONE-->
                                         <!-- unordered list of answers generated dynamically in javascript -->
-                                        <!-- add ulList DONE-->
                                         <div class="center">
                                             <ul class="showSelection ulList" id="answers"></ul>
                                         </div>
@@ -83,7 +64,6 @@
                                     <hr class="blueline">
                                     <!-- displays whether user guessed correctly or incorrectly-->
                                     <div>
-                                        <!-- add center DONE-->
                                         <p class="center judgement"></p>
                                     </div>
                                 </div>
@@ -105,7 +85,6 @@
                                     <hr class="blueline">
                                     <!-- displays whether user guessed correctly or incorrectly for final question -->
                                     <div>
-                                        <!-- add center DONE-->
                                         <p class="center verdict"></p>
                                     </div>
                                 </div>

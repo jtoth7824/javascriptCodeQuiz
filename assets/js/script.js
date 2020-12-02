@@ -51,7 +51,6 @@ viewHSLinkEl.addEventListener("click", function () {
     for(var m=0; m<colEl.length; m++) {
         colEl[m].className = colEl[m].className + " " + "colPadding";
     }
-
     displayHS();
 });
 
@@ -70,7 +69,6 @@ resetScoresEl.addEventListener("click", function () {
     for (var m=0; m<colEl.length; m++) {
         colEl[m].className = colEl[m].className + " " + "colPadding";
     }
-
     displayHS();
 });
 
@@ -131,12 +129,13 @@ submitScoreEl.addEventListener("click", function () {
         initials: playerInitialsEl.value.trim().toUpperCase(),
         score: score
     };
-
+    /* force user initials to be 2 characters */
     if (hsEntry.initials.length > 2) {
         alert("Initials must be 2 characters only!");
+        playerInitialsEl.value = "";
     } else {
         savedInitials = hsEntry.initials;
-
+        /* check that initials aren't null for saving */
         if (hsEntry.initials !== "") {
             /* switch screens */
             personalScoreEl.className = "card-body hidden";
@@ -150,6 +149,7 @@ submitScoreEl.addEventListener("click", function () {
                 /* add new high score to end of high scores array */
                 highScores.push(hsEntry);
             }
+            /* sort high score array */
             sortFunction();
             /* display the updated high score list to screen */
             hsList.className = "hsList";

@@ -33,10 +33,11 @@ var answerList = document.querySelector("#answers");
 var viewHSLinkEl = document.querySelector("#viewHSLink");
 var promptEl = document.querySelector("#prompt");
 var colEl = document.querySelectorAll(".col");
-
+var temptimer;
 /* View High Scores button listener */
 viewHSLinkEl.addEventListener("click", function () {
     /* switch screens */
+    clearInterval(temptimer);
     navEl.className = "hidden";
     personalScoreEl.className = "card-body hidden";
     startEl.className = "card-body hidden";
@@ -293,6 +294,7 @@ function setTime() {
             clearInterval(timerInterval);
         }
     }, 1000);
+    temptimer = timerInterval;
 }
 
 function init() {
